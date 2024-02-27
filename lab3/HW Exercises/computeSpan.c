@@ -1,5 +1,6 @@
 // Include the stack implementation in your code. You can use either the linked list implementation or the array implementation.
 #include <stdio.h>
+#include "stack.h"
 
 void computeSpans(int *inputs, int *spans, int n);
 
@@ -26,7 +27,23 @@ int main()
 
 void computeSpans(int *inputs, int *spans, int n)
 {
-    /*
-        Write your code here
-    */
+    stackptr s = createStack();
+    for(int i=0; i<n; i++){
+        push(s, inputs[i]);
+    }
+    int i=0;
+    while(s->list->head!=NULL && i<n){
+        int c = 0;
+        if(peek(s)==NULL){
+            return;
+        }
+        int curr = peek(s);
+        while(curr>=peek(s) && s->list->head!=NULL){
+            c++;
+            pop(s);
+        }
+        spans[i]=c;
+        i++;
+        curr=peek(s);
+    }
 }
